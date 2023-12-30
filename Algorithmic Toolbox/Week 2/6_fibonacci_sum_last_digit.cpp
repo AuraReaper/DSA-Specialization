@@ -1,41 +1,31 @@
-#include <iostream>
-using namespace std ;
+// this program also follow a particular logic and algorothim.
+// important question
+/* this program follows the concept that the last digit of sum of fibonacci series
+    occur at the en of the 60th number 
+*/
+// other imporetant details are mentioneed in the algorithms notebook.
+// this is learn and understand concept problem.
 
-int fibonacci_sum_naive(long long n) {
-    if (n <= 1)
-        return n;
+#include <bits/stdc++.h>
+using namespace std;
 
-    long long previous = 0;
-    long long current  = 1;
-    long long sum      = 1;
-
-    for (long long i = 0; i < n - 1; ++i) {
-        long long tmp_previous = previous;
-        previous = current;
-        current = tmp_previous + current;
-        sum += current;
-    }
-
-    return sum % 10;
-}
-
-long long int fibonacci_sum(long long int n){
-    long long int sum = 1 ;
-    if(n == 0 || n == 1){
-        return n ;
-    }
-    long long int fibo[n] ;
+long long last_digit(long long n){
+    n = (n + 2) % 60 ;
+    long long fibo[n] ;
     fibo[0] = 0 ;
     fibo[1] = 1 ;
-    for(long long int i = 2;i <= n;i++){
-        fibo[i] = (fibo[i-1] + fibo[i-2]) % 10 ;
-        sum = (sum % 10) + (fibo[i] % 10) ;
+    for(long long i = 2;i <= n;i++){
+        fibo[i] = ((fibo[i-1] % 10) + (fibo[i-2] % 10)) % 10 ;
     }
-    return (sum % 10) ;
+    if(fibo[n] == 0){
+        return 9 ;
+    }
+    return((fibo[n] % 10) - 1) ;
 }
 
-int main() {
-    long long int n = 0;
-    std::cin >> n;
-    std::cout << fibonacci_sum_naive(n);
+int main(){
+    long long n ;
+    cin >> n ;
+    cout << last_digit(n) ;
+    return 0;
 }
